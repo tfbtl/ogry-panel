@@ -11,10 +11,9 @@ import Checkbox from "../../ui/Checkbox";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "../bookings/useBooking";
 import Spinner from "../../ui/Spinner";
-import { useEffect, useState } from "react";
+import { useState, useRef } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import { useCheckin } from "./useCheckin";
-import { add } from "date-fns";
 import { useSettings } from "../settings/useSettings";
 
 const Box = styled.div`
@@ -26,11 +25,18 @@ const Box = styled.div`
 `;
 
 function CheckinBooking() {
-  const [confirmPaid, setConfirmPaid] = useState(false);
-  const [addBreakfast, setAddBreakfast] = useState(false);
   const { booking, isLoading } = useBooking();
-  useEffect(() => setConfirmPaid(booking?.isPaid ?? false), [booking]);
+  const bookingIdRef = useRef(booking?.id);
+  const [confirmPaid, setConfirmPaid] = useState(booking?.isPaid ?? false);
+  const [addBreakfast, setAddBreakfast] = useState(false);
   const moveBack = useMoveBack();
+  
+  // Reset state when booking ID changes
+  if (booking?.id !== bookingIdRef.current) {
+    bookingIdRef.current = booking?.id;
+    setConfirmPaid(booking?.isPaid ?? false);
+  }
+  
   const { checkin, isCheckingIn } = useCheckin();
   const { settings, isLoading: isLoadingSettings } = useSettings();
 

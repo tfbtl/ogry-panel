@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "validate:boundaries": "node scripts/validate-boundaries.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.89.0",
