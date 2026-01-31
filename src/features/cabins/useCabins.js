@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCabins } from "../../services/apiCabins";
+import { getCabinsUseCase } from "../../shared/composition/cabinUseCases";
 
 export function useCabins() {
   const {
@@ -8,7 +8,13 @@ export function useCabins() {
     error,
   } = useQuery({
     queryKey: ["cabins"],
-    queryFn: getCabins,
+    queryFn: async () => {
+      const result = await getCabinsUseCase.execute();
+      if (!result.ok) {
+        throw new Error(result.error.messageKey);
+      }
+      return result.data;
+    },
   });
 
   return { isLoading, error, cabins };
