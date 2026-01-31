@@ -1,4 +1,4 @@
-import supabase, { supabaseUrl } from "../../supabase";
+import { supabase, supabaseUrl } from "./supabaseClient";
 
 const isRecord = (value) => value && typeof value === "object";
 

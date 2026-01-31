@@ -2,7 +2,7 @@ import type { ICabinService } from "../../../shared/interfaces/ICabinService";
 import type { Result } from "../../../shared/types/foundation";
 import type { Cabin, CreateCabinInput, UpdateCabinInput } from "../../../shared/types/cabin";
 import { ok, err, errorFromException } from "../../../shared/utils/errorHelpers";
-import supabase, { supabaseUrl } from "../../supabase";
+import { supabase, supabaseUrl } from "./supabaseClient";
 
 /**
  * CabinServiceAdapter - Supabase implementation of ICabinService
