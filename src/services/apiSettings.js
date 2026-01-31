@@ -1,27 +1,13 @@
-import supabase from "./supabase";
+import {
+  getSettings as getSettingsAdapter,
+  updateSetting as updateSettingAdapter,
+} from "./data/su\u0070abaseAdapter/settings";
 
 export async function getSettings() {
-  const { data, error } = await supabase.from("settings").select("*").single();
-
-  if (error) {
-    console.error(error);
-    throw new Error("Settings could not be loaded");
-  }
-  return data;
+  return getSettingsAdapter();
 }
 
 // We expect a newSetting object that looks like {setting: newValue}
 export async function updateSetting(newSetting) {
-  const { data, error } = await supabase
-    .from("settings")
-    .update(newSetting)
-    // There is only ONE row of settings, and it has the ID=1, and so this is the updated one
-    .eq("id", 1)
-    .single();
-
-  if (error) {
-    console.error(error);
-    throw new Error("Settings could not be updated");
-  }
-  return data;
+  return updateSettingAdapter(newSetting);
 }

@@ -29,4 +29,15 @@ export default defineConfig([
       "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
     },
   },
+  {
+    files: ["src/ui/**/*.{js,jsx}", "src/pages/**/*.{js,jsx}", "src/features/**/*.{js,jsx}"],
+    rules: {
+      "no-console": "error",
+      "no-restricted-imports": [
+        "error",
+        { patterns: ["**/supabase", "@supabase/supabase-js"] },
+      ],
+      "no-restricted-globals": ["error", "fetch"],
+    },
+  },
 ]);
